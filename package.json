@@ -1,0 +1,27 @@
+{
+  "name": "nodejs-rest-api",
+  "version": "1.0.0",
+  "description": "Building REST API using nodeJS",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akashbhardwaj04/NodeJS-REST-API.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akashbhardwaj04/NodeJS-REST-API/issues"
+  },
+  "homepage": "https://github.com/akashbhardwaj04/NodeJS-REST-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.13"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.7"
+  }
+}
