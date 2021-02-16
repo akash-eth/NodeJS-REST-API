@@ -1,10 +1,10 @@
 {
   "name": "nodejs-rest-api",
   "version": "1.0.0",
-  "description": "Building REST API using nodeJS",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -15,13 +15,5 @@
   "bugs": {
     "url": "https://github.com/akashbhardwaj04/NodeJS-REST-API/issues"
   },
-  "homepage": "https://github.com/akashbhardwaj04/NodeJS-REST-API#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.11.13"
-  },
-  "devDependencies": {
-    "dotenv": "^8.2.0",
-    "nodemon": "^2.0.7"
-  }
+  "homepage": "https://github.com/akashbhardwaj04/NodeJS-REST-API#readme"
 }
