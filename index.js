@@ -56,8 +56,8 @@ app.post('/api/courses', (req, res) => {
 
     const { error } = validateCourse(req.body);         // for it's explaination see PUT request below!!
     if(error) {     
-        res.status(400).send(error.details[0].message);
-        return;
+        return res.status(400).send(error.details[0].message); // using return here itself to exit the function here itself
+        //return; // this is also ok
     }
 
 
@@ -82,7 +82,8 @@ function validateCourse(course) {
 app.put('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if (!course) {
-        res.status(404).send("Request Not Available");
+        return res.status(404).send("Request Not Available"); // or we can use return here itself !!
+        // return; // this is used to exit the function here itself !! not proceeding further !!
     }
     // calling the validation function:
     // const result = validateCourse(req.body); // we do not need this line any more as, we a have made object destructoring in next line.
@@ -93,8 +94,8 @@ app.put('/api/courses/:id', (req, res) => {
     //     return;
     // }
     if (error) {     // so, here we can use only ERROR rather than calling result.error as above
-        res.status(400).send(error.details[0].message);
-        return;
+        return res.status(400).send(error.details[0].message); // using return to exit the function here itself
+        //return;
     }
 
     course.name = req.body.name;
@@ -106,7 +107,8 @@ app.put('/api/courses/:id', (req, res) => {
 app.delete('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if(!course) {
-        res.status(404).send("Request Not Available with this course id");
+        return res.status(404).send("Request Not Available with this course id");
+        //return;
     }
 
     const index = courses.indexOf(course);
