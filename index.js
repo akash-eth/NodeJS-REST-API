@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const http = require("http");
 const express = require("express");
+const { parse } = require("path");
 
 
 
@@ -40,13 +41,22 @@ app.get('/api/posts/:year/:month', (req, res) => {
 
 app.post('/api/courses', (req, res) => {
 
-    const schema = {
-        name: Joi.string().min(3).required()
-    };
+    // const schema = {
+    //     name: Joi.string().min(3).required()
+    // };
 
-    const result = Joi.validate(req.body, schema)
-    if(result.error) {
-        res.status(404).send(result.error);
+    // const result = Joi.validate(req.body, schema)
+    
+    // if(result.error) {
+    //     res.status(404).send(result.error.details[0].message);
+    //     return;
+    // }
+
+    // Instead of this method we will use the method we made in PUT request by using the function validateCourse!!
+
+    const { error } = validateCourse(req.body);         // for it's explaination see PUT request below!!
+    if(error) {     
+        res.status(400).send(error.details[0].message);
         return;
     }
 
@@ -58,6 +68,41 @@ app.post('/api/courses', (req, res) => {
     courses.push(course);
     res.send(course);
 })
+
+// Creating a hardcode function for Joi Validation logic:
+function validateCourse(course) {
+    const schema = {
+        name: Joi.string().min(3).required()
+    };
+
+    return Joi.validate(course, schema);
+}
+
+
+app.put('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) {
+        res.status(404).send("Request Not Available");
+    }
+    // calling the validation function:
+    // const result = validateCourse(req.body); // we do not need this line any more as, we a have made object destructoring in next line.
+    const { error } = validateCourse(req.body); // this equivalent to result.error
+
+    // if(result.error) {
+    //     res.status(404).send(result.error.details[0].message);
+    //     return;
+    // }
+    if(error) {     // so, here we can use only ERROR rather than calling result.error as above
+        res.status(400).send(error.details[0].message);
+        return;
+    }
+
+    course.name = req.body.name;
+    res.send(course);
+
+})
+
+
 
 //PORT
 const port = process.env.PORT || 3000;
