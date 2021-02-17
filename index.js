@@ -2,7 +2,10 @@ const http = require("http");
 
 const express = require("express");
 
+
+
 const app = express();
+app.use(express.json());
 
 var courses = [
     {id:1, name: "courses1"},
@@ -17,6 +20,7 @@ app.get('/', (req, res) => {
 app.get('/api/courses', (req,res) => {
     res.send(courses)       // courses is the above decared array !!
 })
+
 /* IMPORTANT 
 app.get('/api/posts/:id', (req,res)=> {     //here :id is the route parameter, which we pass in the browser
     res.send(req.params.id);
@@ -27,13 +31,21 @@ app.get('/api/posts/:year/:month', (req, res) => {
 })
 
 */
-app.get('/api/courses/:id', (req,res) => {
-    //now we will parse through the courses to find them by there ID:
-    let course = courses.find(c => c.id === parseInt(req.params.id));   // here c is var, c.id will parse through arr and check with our browser params.
-    if(!course) { res.status(404).send("Request not found") }
+// app.get('/api/courses/:id', (req,res) => {
+//     //now we will parse through the courses to find them by there ID:
+//     let course = courses.find(c => c.id === parseInt(req.params.id));   // here c is var, c.id will parse through arr and check with our browser params.
+//     if(!course) { res.status(404).send("Request not found") }
+//     res.send(course);
+// })
+
+app.post('/api/courses', (req, res) => {
+    const course = {
+        id: courses.length + 1,
+        name: req.body.name
+    }
+    courses.push(course);
     res.send(course);
 })
-
 
 //PORT
 const port = process.env.PORT || 3000;
